@@ -40,7 +40,7 @@ app.MapRazorPages();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
+    pattern: "{controller=Schedule}/{action=Get}/");
 
 app.Run();
 
