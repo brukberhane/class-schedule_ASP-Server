@@ -1,0 +1,31 @@
+@page "/Schedule/Update"
+@model HiLCoECS.Pages.UploadPage
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@{
+    ViewData["Title"] = "Update Schedule's for Application";
+}
+
+<div>
+    <div>@if (@ViewData["Errors"] != null) {<span>@ViewData["Errors"]</span>}</div>
+    <form enctype="multipart/form-data" method="post">
+        <dl>
+            <dt>
+                <label>Password</label>
+            </dt>
+            <dt>
+                <input asp-for="FileUpload.Password" type="password">
+                <span asp-validation-for="FileUpload.Password"></span>
+            </dt>
+        </dl>
+        <dl>
+            <dt>
+                <label>Schedule File:</label>
+            </dt>
+            <dd>
+                <input asp-for="FileUpload.FormFile" type="file">
+                <span asp-validation-for="FileUpload.FormFile"></span>
+            </dd>
+        </dl>
+        <input asp-page-handler="Upload" class="btn" type="submit" value="Upload">
+    </form>
+</div>

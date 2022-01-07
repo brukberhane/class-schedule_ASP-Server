@@ -1,16 +1,22 @@
 ﻿using System;
 using HiLCoECS.Models;
+using HiLCoECS.Services;
 using Microsoft.Extensions.Options;
+using MongoDB.Driver;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 // ? Fetch the strings from appsettings.json
 builder.Services.Configure<ScheduleDatabaseSettings>(
-    builder.Configuration.GetSection(nameof(ScheduleDatabaseSettings))
+     builder.Configuration.GetSection(nameof(ScheduleDatabaseSettings))
 );
-// ? Add the mongodb service and intialize it.
-builder.Services.AddSingleton<IScheduleDatabaseSettings>(sp => sp.GetRequiredService<IOptions<ScheduleDatabaseSettings>>().Value);
+// ? Adding runtime compilation and the Update page.
+builder.Services.AddRazorPages().AddRazorRuntimeCompilation();
+// ? Add the mongodb service and initialize it.
+builder.Services.AddSingleton<IScheduleDatabaseSettings>(sp => 
+    sp.GetRequiredService<IOptions<ScheduleDatabaseSettings>>().Value);
+builder.Services.AddSingleton<ScheduleService>();
 builder.Services.AddControllersWithViews();
 
 var app = builder.Build();
@@ -29,6 +35,8 @@ app.UseStaticFiles();
 app.UseRouting();
 
 app.UseAuthorization();
+
+app.MapRazorPages();
 
 app.MapControllerRoute(
     name: "default",
