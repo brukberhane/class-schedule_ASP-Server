@@ -37,10 +37,7 @@ namespace HiLCoECS.Services
     static List<Schedule> ConvertSchedules(List<ServerSchedule> serverSchedules)
     {
       List<Schedule> schedules = new List<Schedule>();
-      // FIXME: Remember to restore contingency if this LINQ fails.
-      // var temp = serverSchedules.GroupBy(p => p.SectionName).Select(s => s.First()).ToArray();
       var batches = serverSchedules.Select(p => p.SectionName).GroupBy(p => p).Select(p => p.First()).ToArray();
-      // var batches = temp.Select(s => s.SectionName).ToArray();
       foreach (var batch in batches) 
       {
         // * Create a new schedule for every batch 
