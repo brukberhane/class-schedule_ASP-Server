@@ -17,6 +17,11 @@ builder.Services.AddRazorPages().AddRazorRuntimeCompilation();
 builder.Services.AddSingleton<IScheduleDatabaseSettings>(sp => 
     sp.GetRequiredService<IOptions<ScheduleDatabaseSettings>>().Value);
 builder.Services.AddSingleton<ScheduleService>();
+// ? Adding cors policy
+builder.Services.AddCors(c => 
+{
+    c.AddPolicy("AllowOrigin", options => options.AllowAnyOrigin());
+});
 builder.Services.AddControllersWithViews();
 
 var app = builder.Build();
