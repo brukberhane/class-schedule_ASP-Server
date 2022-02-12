@@ -74,16 +74,16 @@ namespace HiLCoECS.Services
             switch (period.Number)
             {
               case 1:
-                period.Time = "08:00";
+                period.Time = "08:20 - 10:00";
                 break;
               case 2:
-                period.Time = "10:00";
+                period.Time = "10:30 - 12:10";
                 break;
               case 3:
-                period.Time = "13:30";
+                period.Time = "13:30 - 15:10";
                 break;
               case 4:
-                period.Time = "15:30";
+                period.Time = "15:30 - 17:10";
                 break;
               default:
                 break;
