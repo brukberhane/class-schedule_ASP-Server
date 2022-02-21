@@ -49,6 +49,7 @@ namespace HiLCoECS.Pages
         return Redirect("/api/Schedule");
       }
 
+      ViewData["Error"] = "Password is incorrect.";
       return Page();
     }
   }

@@ -8,10 +8,20 @@ namespace HiLCoECS.Services
         private readonly IMongoCollection<Schedule> _schedules;
 
         public ScheduleService(IScheduleDatabaseSettings settings){
-            MongoClient client = new MongoClient(settings.ConnectionString);
-            var database = client.GetDatabase(settings.DatabaseName);
+            if (Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") != "Production")
+            {
+              MongoClient client = new MongoClient(settings.ConnectionString);
+              var database = client.GetDatabase(settings.DatabaseName);
 
-            _schedules = database.GetCollection<Schedule>(settings.ScheduleCollectionName);
+              _schedules = database.GetCollection<Schedule>(settings.ScheduleCollectionName);
+
+            } else
+            {
+              MongoClient client = new MongoClient(Environment.GetEnvironmentVariable("MONGO_CONN_STRING"));
+              var database = client.GetDatabase(Environment.GetEnvironmentVariable("MONGO_DATABASE"));
+
+              _schedules = database.GetCollection<Schedule>(Environment.GetEnvironmentVariable("MONGO_COLLECTION"));
+            }
         }
 
         public async Task<List<Schedule>> GetSchedules() =>

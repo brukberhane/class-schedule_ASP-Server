@@ -7,17 +7,17 @@ using MongoDB.Driver;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-// ? Fetch the strings from appsettings.json
+// NOTE: Fetch the strings from appsettings.json
 builder.Services.Configure<ScheduleDatabaseSettings>(
      builder.Configuration.GetSection(nameof(ScheduleDatabaseSettings))
 );
-// ? Adding runtime compilation and the Update page.
+// NOTE: Adding runtime compilation and the Update page.
 builder.Services.AddRazorPages().AddRazorRuntimeCompilation();
 // ? Add the mongodb service and initialize it.
 builder.Services.AddSingleton<IScheduleDatabaseSettings>(sp => 
     sp.GetRequiredService<IOptions<ScheduleDatabaseSettings>>().Value);
 builder.Services.AddSingleton<ScheduleService>();
-// ? Adding cors policy
+// NOTE: Adding cors policy
 builder.Services.AddCors(c => 
 {
     c.AddPolicy("AllowOrigin", options => options.AllowAnyOrigin());
